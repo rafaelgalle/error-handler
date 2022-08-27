@@ -15,6 +15,15 @@ Apesar de acreditar não existir um jeito certo ou errado, gosto mais de evitar 
 
 Dessa maneira, validações que são realizadas no domínio da aplicação, validações de regras de negócio jamais retornarão exceções, mas sempre erros mapeados e bem definidos, deixando exceções para erros não esperados, geralmente comunicações com terceiros que ficam na camada de infraestrutura, onde são realmente exceções, coisas que fogem do domínio de nossa aplicação.
 
+Fiz um exemplo tosco, apenas para validar o conceito que mais me agradou,  ele é praticamente todo baseado em uma classe de **Result<T>**, onde passamos a tipo do nosso objeto, uma vez que instanciamos a classe com esse tipo, podemos esperar um retorno **ok** com seus dados, ou um retorno **fail** com um erro mapeado, como por exemplo
+```
+const userOrError = await this.userRepository.create(user)
+if (userOrError.isFailure) return Result.fail<UserEntity>(userOrError.error)
+
+return Result.ok<UserEntity>(userOrError.getValue())
+```
+
+Ao chamar o dado do repositório eu não espero um objeto do tipo **User**, mas sim um objeto de **Result<User>**, podende conter um **User** ou um **Erro**, assim sempre podemos esperar um retorno padronizado do nosso domínio, sempre utilizando a classe Result, se houver erro ao cadastrar usuário ou se o usuário buscado não existir vou utilizar um erro mapeado e retornalo através da classe Result, mantendo um padrão e não utilizando estouro de exceções para esses cenários, nem mesmo retornando ora Usuário ora Null.
 ### **Referências**
 
 https://khalilstemmler.com/articles/enterprise-typescript-nodejs/handling-errors-result-class/
