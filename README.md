@@ -1,13 +1,22 @@
-# Error handler
+# **Error handler**
 Searching for a good way to handle errors with nodejs + typescript
 
-# Manipulando erros
+## **Manipulando erros**
 
-Como manipular erros? estourar exceção, lançar erro, retornar null???
+Objetivo deste repositório é encontrar uma maneira elegante e funcional de tratar erros em aplicações, afinal, devo estourar uma exceção, lançar um erro mapeado, retornar null???
 
-Após ler muito sobre isso, separei algumas principais referencias e fiz alguns testes pra cada uma delas, mesclei um pouco de cada e cheguei no 'Test5', escolhi essa forma para seguir com o tratamento de erros na aplicação.
+Após ler muito sobre esse assunto, encontrei dois principais caminhos
+* Utilizar exceções e lança-las código a dentro
+* Evitar exceções, criando erros mapeados e utilizá-los.
 
-Referências
+Entendi que não existe um jeito certo ou errado, são filosofias diferentes cada uma com seus prós e contras, eu separei uma série de links de artigos e vídeos dos quais reuni ideias, eles estão no final destas instruções.
+
+Apesar de acreditar não existir um jeito certo ou errado, gosto mais de evitar exceções, mapear erros, identificar erros negociais e classificá-los, identificando erros a nível de aplicação e a nível de negócio, do domínio da aplicação.
+
+Dessa maneira, validações que são realizadas no domínio da aplicação, validações de regras de negócio jamais retornarão exceções, mas sempre erros mapeados e bem definidos, deixando exceções para erros não esperados, geralmente comunicações com terceiros que ficam na camada de infraestrutura, onde são realmente exceções, coisas que fogem do domínio de nossa aplicação.
+
+### **Referências**
+
 https://khalilstemmler.com/articles/enterprise-typescript-nodejs/handling-errors-result-class/
 
 https://khalilstemmler.com/articles/enterprise-typescript-nodejs/functional-error-handling/
